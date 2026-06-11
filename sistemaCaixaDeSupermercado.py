@@ -1,6 +1,6 @@
 dictProdutosCadastrados: dict = {}
-listaValorCarrinhoDeCompras: list = []
-listaCarrinhoDeCompras: list = []
+carrinhoDeCompras = {}
+
 totalDaCompra: float = 0
 
 def cadastrarProdutos():
@@ -16,7 +16,7 @@ def verListaDeProdutos():
     print("Estoque de Produtos Disponiveis")
     for produtos in dictProdutosCadastrados:
 
-        print(produtos)
+        print(f"Produto: {produtos} - R$ {dictProdutosCadastrados[produtos]}")
 
 def adicionarItenAoCarrinho():
     
@@ -32,31 +32,32 @@ def adicionarItenAoCarrinho():
 
             preco = dictProdutosCadastrados[escolherProduto]
             
-            listaValorCarrinhoDeCompras.append(preco)
-            listaCarrinhoDeCompras.append(escolherProduto)
-        
-        elif escolherProduto == "X":
-            for produto in listaValorCarrinhoDeCompras:
+            carrinhoDeCompras[escolherProduto] = preco
+            
+            print("Produto adicionado ao carrinho de compras")
 
-                    totalDaCompra = totalDaCompra + produto
+        elif escolherProduto == "X":
+            
+            for valor in carrinhoDeCompras.values():
+            
+                totalDaCompra = totalDaCompra + valor
             
             print(f"O valor Total da compra e R$ {totalDaCompra}\n")
+            
                 
             break
-
-
+        
         else:
 
             print("Produto invalido")
-            
-            
+        
 def verCarrinho():
 
     print("Carrinho de Compras")
     
-    for itens in listaCarrinhoDeCompras: 
+    for produto, valor in carrinhoDeCompras.items(): 
     
-        print(itens)
+        print(f"Produto: {produto} - R$ {valor}")
 
 
 def realizarPagamento():
@@ -71,11 +72,8 @@ def realizarPagamento():
                                     --> ''')).upper()
     
     print("Compra Realizada com sucesso !!!")
-    listaCarrinhoDeCompras.clear()
-    listaValorCarrinhoDeCompras.clear()
+    carrinhoDeCompras.clear()
 
-
-            
 def menuAdm():
 
     while True:
